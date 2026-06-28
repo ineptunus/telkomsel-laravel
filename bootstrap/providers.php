@@ -1,7 +1,21 @@
 <?php
 
-use App\Providers\AppServiceProvider;
+namespace App\Providers;
 
-return [
-    AppServiceProvider::class,
-];
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register()
+    {
+        //
+    }
+
+    public function boot()
+    {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+    }
+}

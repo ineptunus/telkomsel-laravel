@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000/api/predict-tweet";
+const API_URL = "https://telkomsel-laravel-production.up.railway.app/api/predict-tweet";
 
 function getTweetText(tweetElement) {
     const tweetText = tweetElement.querySelector('[data-testid="tweetText"]');
