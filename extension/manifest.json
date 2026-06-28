@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Telkomsel X Analytics",
+  "version": "1.0",
+  "description": "Analisis sentiment, hate speech, dan sarcasm pada tweet Telkomsel.",
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "http://127.0.0.1:8000/*"
+  ],
+ "content_scripts": [
+  {
+    "matches": [
+      "https://twitter.com/*",
+      "https://x.com/*"
+    ],
+    "js": ["content.js"],
+    "css": ["style.css"],
+    "run_at": "document_idle"
+  }
+],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Telkomsel X Analytics"
+  }
+}

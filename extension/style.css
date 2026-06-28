@@ -1,0 +1,92 @@
+.telko-mini-badge {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 8px;
+    padding: 5px 9px;
+    border-radius: 8px;
+    background: #16181c;
+    border: 1px solid #2f3336;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.telko-mini-badge::before {
+    content: "";
+    width: 3px;
+    height: 18px;
+    border-radius: 99px;
+    display: inline-block;
+}
+
+.telko-mini-badge.hate::before {
+    background: #ef4444;
+}
+
+.telko-mini-badge.sarcasm::before {
+    background: #facc15;
+}
+
+.telko-mini-badge.normal::before {
+    background: #14b8a6;
+}
+
+.telko-mini-badge.negative::before {
+    background: #fb923c;
+}
+
+.telko-brand {
+    color: #71767b;
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.telko-dot-text {
+    color: #71767b;
+}
+
+.telko-main {
+    font-weight: 800;
+}
+
+.telko-mini-badge.hate .telko-main {
+    color: #ef4444;
+}
+
+.telko-mini-badge.sarcasm .telko-main {
+    color: #facc15;
+}
+
+.telko-mini-badge.normal .telko-main {
+    color: #2dd4bf;
+}
+
+.telko-mini-badge.negative .telko-main {
+    color: #fb923c;
+}
+
+.telko-score {
+    background: #25282d;
+    color: #f8fafc;
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.telkomsel-ai-loading {
+    width: fit-content;
+    margin-top: 8px;
+    padding: 5px 9px;
+    border-radius: 8px;
+    background: #16181c;
+    border: 1px solid #2f3336;
+    color: #38bdf8;
+    font-size: 11px;
+    font-weight: 700;
+}
