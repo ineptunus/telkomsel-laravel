@@ -17,8 +17,20 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-        //
+    public function boot()
+{
+    if (config('app.env') === 'production') {
+        URL::forceScheme('https');
     }
+    
+    // Tambahkan ini juga
+    \Illuminate\Support\Facades\Request::setTrustedProxies(
+        ['*'],
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_FOR |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_HOST |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_PORT |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_PROTO |
+        \Illuminate\Http\Request::HEADER_X_FORWARDED_AWS_ELB
+    );
+}
 }
