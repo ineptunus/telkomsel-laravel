@@ -3,34 +3,29 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
+    public function register()
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot()
-{
-    if (config('app.env') === 'production') {
+    {
+        // Force HTTPS
         URL::forceScheme('https');
+
+        // Trust semua proxy (Railway pakai reverse proxy)
+        Request::setTrustedProxies(
+            ['*'],
+            Request::HEADER_X_FORWARDED_FOR |
+            Request::HEADER_X_FORWARDED_HOST |
+            Request::HEADER_X_FORWARDED_PORT |
+            Request::HEADER_X_FORWARDED_PROTO |
+            Request::HEADER_X_FORWARDED_AWS_ELB
+        );
     }
-    
-    // Tambahkan ini juga
-    \Illuminate\Support\Facades\Request::setTrustedProxies(
-        ['*'],
-        \Illuminate\Http\Request::HEADER_X_FORWARDED_FOR |
-        \Illuminate\Http\Request::HEADER_X_FORWARDED_HOST |
-        \Illuminate\Http\Request::HEADER_X_FORWARDED_PORT |
-        \Illuminate\Http\Request::HEADER_X_FORWARDED_PROTO |
-        \Illuminate\Http\Request::HEADER_X_FORWARDED_AWS_ELB
-    );
-}
 }
