@@ -33,3 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/export-laporan', [ExportController::class, 'index'])->name('export');
     Route::get('/export-laporan/download/{template}', [ExportController::class, 'downloadReport'])->name('export.download.report');
 });
+
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
+});

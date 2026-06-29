@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -39,35 +40,31 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return back()->with('error', 'Email atau password salah.');
+            session([
+                'admin_name' => Auth::user()->name,
+                'admin_email' => Auth::user()->email,
+            ]);
+
+            return redirect()->intended(route('dashboard'));
         }
 
-        session([
-            'admin_login' => true,
-            'admin_id' => $user->id,
-            'admin_name' => $user->name,
-            'admin_email' => $user->email,
-        ]);
-
-        return redirect()->route('dashboard');
+        return back()->with('error', 'Email atau password salah.');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->forget([
-            'admin_login',
-            'admin_id',
-            'admin_name',
-            'admin_email',
-        ]);
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('login');
     }
